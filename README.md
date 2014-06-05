@@ -1,4 +1,4 @@
-blog
-====
+Lean Servlet System
+===================
 
-Code repository for the 'Don't Code Angry' blog
+Please see wiki for details: https://github.com/Si-Kelly/LeanServletSystem/wiki
