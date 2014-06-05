@@ -21,11 +21,26 @@ import org.jooq.impl.DSL;
  * 
  */
 public class DBConnection {
+
 	private static final Log log = LogFactory.getLog(DBConnection.class);
 	private static final String KEY = "com.lss.openconnection";
 	private static final String DATA_SOURCE_KEY = "com.lss.datasource";
 
-	private Connection connection;
+	private final Connection connection;
+
+	/**
+	 * Returns an instance of DBConnection
+	 * 
+	 * @param req
+	 * @throws DBConnectionException
+	 */
+	public DBConnection(ServletRequest req) throws DBConnectionException {
+		this.connection = getConnection(req);
+	}
+
+	public static void setDataSource(ServletContext servletContext, DataSource ds) throws DBConnectionException {
+		servletContext.setAttribute(DATA_SOURCE_KEY, ds);
+	}
 
 	private static Connection getOpenConnection(ServletRequest req) {
 		return (Connection) req.getAttribute(KEY);
@@ -50,14 +65,8 @@ public class DBConnection {
 		return cached;
 	}
 
-	/**
-	 * Returns an instance of DBConnection
-	 * 
-	 * @param req
-	 * @throws DBConnectionException
-	 */
-	public DBConnection(ServletRequest req) throws DBConnectionException {
-		this.connection = getConnection(req);
+	public Connection getConnection() {
+		return connection;
 	}
 
 	public DSLContext dsl() {
@@ -88,10 +97,6 @@ public class DBConnection {
 				log.error("Error closing connection ", e);
 			}
 		}
-	}
-
-	public static void setDataSource(ServletContext servletContext, DataSource ds) throws DBConnectionException {
-		servletContext.setAttribute(DATA_SOURCE_KEY, ds);
 	}
 
 }
