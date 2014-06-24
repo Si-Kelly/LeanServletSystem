@@ -24,7 +24,7 @@ public class DBCloseConnectionFilter implements Filter {
 		try {
 			chain.doFilter(req, response);
 		} finally {
-			DBConnection.closeOpenConnection(req);
+			DB.closeOpenConnection(req);
 		}
 	}
 
