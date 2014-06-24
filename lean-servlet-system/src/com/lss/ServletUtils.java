@@ -28,7 +28,7 @@ public class ServletUtils {
 			pw.write(new Gson().toJson(obj));
 			pw.flush();
 		} catch (IOException e) {
-			e.printStackTrace();
+			LogFactory.getLog(ServletUtils.class).error("IOException thrown while forwarding to JSP", e);
 		}
 
 	}
