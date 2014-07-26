@@ -12,10 +12,15 @@ import org.apache.commons.logging.LogFactory;
 import com.google.gson.Gson;
 
 public class ServletUtils {
+	private static String JSP_ROOT = "";
+
+	public static void setJSPRoot(String root) {
+		JSP_ROOT = root;
+	}
 
 	public static void forwardTo(HttpServletRequest request, HttpServletResponse response, String nextJSP) throws ServletException {
 		try {
-			request.getServletContext().getRequestDispatcher(nextJSP).forward(request, response);
+			request.getServletContext().getRequestDispatcher(JSP_ROOT + nextJSP).forward(request, response);
 		} catch (IOException e) {
 			LogFactory.getLog(ServletUtils.class).error("IOException thrown while forwarding to JSP", e);
 		}
@@ -33,9 +38,9 @@ public class ServletUtils {
 
 	}
 
-	public static void redirect(HttpServletRequest request, HttpServletResponse response, String nextJSP) {
+	public static void redirect(HttpServletRequest request, HttpServletResponse response, String redirectURL) {
 		try {
-			response.sendRedirect(request.getContextPath() + "/" + nextJSP);
+			response.sendRedirect(request.getContextPath() + "/" + redirectURL);
 		} catch (IOException e) {
 			LogFactory.getLog(ServletUtils.class).error("IOException thrown while forwarding to JSP", e);
 		}
