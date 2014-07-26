@@ -3,6 +3,8 @@ package com.lss.db;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLFeatureNotSupportedException;
+import java.util.logging.Logger;
 
 import javax.sql.DataSource;
 
@@ -56,6 +58,11 @@ public class MySQLDataSourceFactory implements DataSourceFactory {
 			@Override
 			public Connection getConnection(String username, String password) throws java.sql.SQLException {
 				throw new UnsupportedOperationException();
+			}
+
+			@Override
+			public Logger getParentLogger() throws SQLFeatureNotSupportedException {
+				throw new SQLFeatureNotSupportedException();
 			}
 
 		};

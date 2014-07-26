@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project default="create_jar" name="Create Lean Servlet Utils jar">
     <target name="create_jar">
-        <jar destfile="../lib/lean-servlet.jar" filesetmanifest="mergewithoutmain">
+        <jar destfile="../target/lean-servlet.jar" filesetmanifest="mergewithoutmain">
             <manifest>
                 <attribute name="Built-By" value="${user.name}"/>
                 <attribute name="Class-Path" value="."/>
