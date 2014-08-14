@@ -8,7 +8,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.annotation.WebFilter;
 
 /**
  * A WebFilter that simply closes the open DBconnection.
@@ -16,11 +15,9 @@ import javax.servlet.annotation.WebFilter;
  * @author Si
  * 
  */
-@WebFilter(urlPatterns = "*")
 public class DBCloseConnectionFilter implements Filter {
 
 	public void doFilter(ServletRequest req, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		req.setCharacterEncoding("UTF-8");
 		try {
 			chain.doFilter(req, response);
 		} finally {

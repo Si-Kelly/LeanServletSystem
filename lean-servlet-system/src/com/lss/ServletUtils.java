@@ -29,11 +29,12 @@ public class ServletUtils {
 	public static void writeObject(HttpServletResponse response, Object obj) {
 		PrintWriter pw;
 		try {
+			response.setContentType("text/json");
 			pw = response.getWriter();
 			pw.write(new Gson().toJson(obj));
 			pw.flush();
 		} catch (IOException e) {
-			LogFactory.getLog(ServletUtils.class).error("IOException thrown while forwarding to JSP", e);
+			LogFactory.getLog(ServletUtils.class).error("IOException thrown while writing JSON to response", e);
 		}
 
 	}
@@ -42,7 +43,7 @@ public class ServletUtils {
 		try {
 			response.sendRedirect(request.getContextPath() + "/" + redirectURL);
 		} catch (IOException e) {
-			LogFactory.getLog(ServletUtils.class).error("IOException thrown while forwarding to JSP", e);
+			LogFactory.getLog(ServletUtils.class).error("IOException thrown while redirecting", e);
 		}
 	}
 

@@ -1,4 +1,4 @@
-package com.lss.bind;
+package com.lss.bind.fileupload;
 
 import java.io.IOException;
 
@@ -8,6 +8,9 @@ import javax.servlet.http.Part;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import com.lss.bind.ParamHelper;
+import com.lss.bind.ValidationException;
 
 public class FileUploadParam implements ParamHelper<FileUpload> {
 	private static final Log LOGGER = LogFactory.getLog(FileUploadParam.class);
@@ -21,7 +24,7 @@ public class FileUploadParam implements ParamHelper<FileUpload> {
 	}
 
 	@Override
-	public ParamHelper<FileUpload> require(String message) throws ValidationException {
+	public FileUploadParam require(String message) throws ValidationException {
 		if (value() == null)
 			throw new ValidationException(new String[] { fieldName, message });
 		return this;
@@ -47,10 +50,10 @@ public class FileUploadParam implements ParamHelper<FileUpload> {
 						}
 					}
 					if (filename != null) {
-						FileType type = FileType.get(filePart.getHeader("content-type"), filename);
-						if (type != null) {
-							upload = new FileUpload(filename, type, filePart);
-						}
+						MimeType type = null;
+						if (filePart.getHeader("content-type") != null)
+							type = new MimeType(filePart.getHeader("content-type"));
+						upload = new FileUpload(filename, type, filePart);
 					}
 				} else {
 					LOGGER.debug(String.format("%s: File Part is null", fieldName));
@@ -73,6 +76,16 @@ public class FileUploadParam implements ParamHelper<FileUpload> {
 	@Override
 	public void push() throws ValidationException {
 		set(value());
+	}
+
+	public FileUploadParam requireText(String message) throws ValidationException {
+		if (value() != null) {
+			MimeType mt = value().getMimeType();
+			if (mt != null && !mt.getType().equals("text")) {
+				throw new ValidationException(new String[] { fieldName, message });
+			}
+		}
+		return this;
 	}
 
 }

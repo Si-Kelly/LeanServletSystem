@@ -1,4 +1,4 @@
-package com.lss.bind;
+package com.lss.bind.fileupload;
 
 import java.io.IOException;
 
@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
+
+import com.lss.bind.ParamHelper;
+import com.lss.bind.ValidationException;
 
 public class UploadedFileParam implements ParamHelper<UploadedFile> {
 	private FileUploadParam fileParam;
@@ -40,7 +43,7 @@ public class UploadedFileParam implements ParamHelper<UploadedFile> {
 				throw new ValidationException(new String[] { this.fieldName, "Unable to read file." });
 			}
 			if (len > 0)
-				value = new UploadedFile(f.getFileType(), bos.toByteArray());
+				value = new UploadedFile(f.getMimeType(), bos.toByteArray());
 		}
 		return value;
 	}
