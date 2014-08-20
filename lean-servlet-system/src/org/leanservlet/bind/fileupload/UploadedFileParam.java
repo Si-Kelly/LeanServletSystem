@@ -1,14 +1,13 @@
 package org.leanservlet.bind.fileupload;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.tomcat.util.http.fileupload.ByteArrayOutputStream;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.apache.commons.io.IOUtils;
 import org.leanservlet.bind.ParamHelper;
 import org.leanservlet.bind.ValidationException;
-
 
 public class UploadedFileParam implements ParamHelper<UploadedFile> {
 	private FileUploadParam fileParam;
@@ -38,7 +37,7 @@ public class UploadedFileParam implements ParamHelper<UploadedFile> {
 			ByteArrayOutputStream bos = new ByteArrayOutputStream(5000000);
 			int len = 0;
 			try {
-				len = IOUtils.copy(f.getInputStream(), bos);
+				IOUtils.copy(f.getInputStream(), bos);
 			} catch (IOException e) {
 				throw new ValidationException(new String[] { this.fieldName, "Unable to read file." });
 			}
