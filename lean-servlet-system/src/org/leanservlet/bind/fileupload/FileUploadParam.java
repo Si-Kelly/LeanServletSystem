@@ -11,7 +11,6 @@ import org.apache.commons.logging.LogFactory;
 import org.leanservlet.bind.ParamHelper;
 import org.leanservlet.bind.ValidationException;
 
-
 public class FileUploadParam implements ParamHelper<FileUpload> {
 	private static final Log LOGGER = LogFactory.getLog(FileUploadParam.class);
 	private FileUpload upload;
@@ -49,7 +48,7 @@ public class FileUploadParam implements ParamHelper<FileUpload> {
 							filename = content.substring(content.indexOf('=') + 1).trim().replace("\"", "");
 						}
 					}
-					if (filename != null) {
+					if (filename != null && filename.length() > 0) {
 						MimeType type = null;
 						if (filePart.getHeader("content-type") != null)
 							type = new MimeType(filePart.getHeader("content-type"));

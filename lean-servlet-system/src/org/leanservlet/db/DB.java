@@ -20,8 +20,8 @@ import org.apache.commons.logging.LogFactory;
 public class DB {
 
 	private static final Log log = LogFactory.getLog(DB.class);
-	private static final String KEY = "com.lss.openconnection";
-	private static final String DATA_SOURCE_KEY = "com.lss.datasource";
+	private static final String KEY = "org.leanservlet.openconnection";
+	private static final String DATA_SOURCE_KEY = "org.leanservlet.datasource";
 
 	/**
 	 * Returns an instance of DBConnection

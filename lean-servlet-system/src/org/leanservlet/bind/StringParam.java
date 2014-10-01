@@ -2,6 +2,8 @@ package org.leanservlet.bind;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringEscapeUtils;
+
 public class StringParam extends BaseParamHelper<String> implements ParamHelper<String> {
 
 	public StringParam(String fieldName, HttpServletRequest request) {
@@ -10,7 +12,7 @@ public class StringParam extends BaseParamHelper<String> implements ParamHelper<
 
 	@Override
 	public String format(String s) {
-		return s;
+		return StringEscapeUtils.escapeHtml4(s);
 	}
 
 	public StringParam restrictLength(int len, String message) throws ValidationException {

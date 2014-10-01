@@ -10,6 +10,18 @@
 		using Servlet 3.0 and above.
 	</description>
 	<url>http://leanservlet.org</url>
+	<developers>
+    <developer>
+      <id>si-kelly</id>
+      <name>Si Kelly</name>
+      <email>si.kelly.work@gmail.org</email>
+      <url>http://leanservlet.org</url>
+      <roles>
+        <role>developer</role>
+      </roles>
+      <timezone>GMT</timezone>
+    </developer>
+  </developers>
 	<licenses>
 		<license>
 			<name>Apache License, Version 2.0</name>
