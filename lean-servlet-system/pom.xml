@@ -1,0 +1,67 @@
+<project>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.leanservlet</groupId>
+	<artifactId>lean-servlet-toolkit</artifactId>
+	<version>1.0</version>
+	<packaging>jar</packaging>
+
+	<name>Lean Servlet Tools</name>
+	<description>A set of classes to help create lean Java web applications
+		using Servlet 3.0 and above.
+	</description>
+	<url>http://leanservlet.org</url>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/Si-Kelly/LeanServletSystem</url>
+	</scm>
+
+	<build>
+		<sourceDirectory>src/</sourceDirectory>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging-api</artifactId>
+			<version>1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+		</dependency>
+		<dependency>
+			<groupId> org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.3.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jdbc</artifactId>
+			<version>7.0.55</version>
+		</dependency>
+	</dependencies>
+</project>
