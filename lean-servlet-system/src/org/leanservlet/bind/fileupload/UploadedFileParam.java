@@ -34,6 +34,8 @@ public class UploadedFileParam implements ParamHelper<UploadedFile> {
 	public UploadedFile value() throws ValidationException {
 		if (value == null) {
 			FileUpload f = fileParam.value();
+			if (f == null)
+				return null;
 			ByteArrayOutputStream bos = new ByteArrayOutputStream(5000000);
 			int len = 0;
 			try {
