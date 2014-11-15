@@ -25,6 +25,19 @@ public abstract class BaseParamHelper<T> implements ParamHelper<T> {
 	private T value;
 	private boolean fromURL = false;
 
+	/**
+	 * Constructor. If the fieldName starts and ends with a '/' character, then
+	 * the parameter will be parsed from the url, by extracting the part of the
+	 * url immediately following the part which matches the supplied fieldName.
+	 * Otherwise the fieldName argument is used as the key for a request
+	 * parameter, using request.getParameter(fieldName).
+	 * 
+	 * @param fieldName
+	 *            A String to be used as a key for the request parameter, or
+	 *            specifying the preceding URL part.
+	 * @param request
+	 *            An HttpServletRequest object
+	 */
 	public BaseParamHelper(String fieldName, HttpServletRequest request) {
 
 		this.request = request;
@@ -36,20 +49,47 @@ public abstract class BaseParamHelper<T> implements ParamHelper<T> {
 		}
 	}
 
+	/**
+	 * Get the key used by this parameter.
+	 * 
+	 * @return The String used as a key for this request parameter.
+	 */
 	public String getParameterName() {
 		return parameterName;
 	}
 
+	/**
+	 * Checks that the value of the request parameter is not null. Otherwise
+	 * throws a {@link ValidationException}.
+	 * 
+	 * @return a reference to this ParamHelper to allow chaining calls.
+	 * @throws ValidationException
+	 *             If no value is present for this parameter on the request. A
+	 *             default error message is used
+	 */
 	public ParamHelper<T> require() throws ValidationException {
 		return require("The parameter was missing");
 	}
 
+	/**
+	 * Checks that the value of the request parameter is not null. Otherwise
+	 * throws a {@link ValidationException} with the supplied error message.
+	 * 
+	 * @return a reference to this ParamHelper to allow chaining calls.
+	 * @throws ValidationException
+	 *             If no value is present for this parameter on the request. The
+	 *             message parameter is used as the message text in the
+	 *             validation exception
+	 */
 	public ParamHelper<T> require(String message) throws ValidationException {
 		if (value() == null)
 			throw new ValidationException(new String[] { getParameterName(), message });
 		return this;
 	}
 
+	/**
+	 * Parses, caches and returns the value of the request parameter.
+	 */
 	public T value() throws ValidationException {
 		if (value == null) {
 			String s = getParameter();

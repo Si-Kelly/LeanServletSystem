@@ -2,6 +2,13 @@ package org.leanservlet.bind;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * A ParamHelper implementation for parsing Boolean values from a
+ * HttpServletRequest object.
+ * 
+ * @author Si
+ * 
+ */
 public class BooleanParam extends BaseParamHelper<Boolean> {
 
 	public BooleanParam(String fieldName, HttpServletRequest request) {
@@ -16,8 +23,7 @@ public class BooleanParam extends BaseParamHelper<Boolean> {
 		try {
 			i = Integer.parseInt(val);
 		} catch (NumberFormatException e) {
-			throw new ValidationException(new String[] { getParameterName(),
-					"The field doesn't seem to be a valid value." });
+			throw new ValidationException(new String[] { getParameterName(), "The field doesn't seem to be a valid value." });
 		}
 		if (i == 1)
 			return Boolean.TRUE;
