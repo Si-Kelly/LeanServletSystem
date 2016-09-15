@@ -44,20 +44,27 @@ public class DB {
 	public static Connection getConnection(ServletRequest req) throws DBConnectionException {
 		Connection cached = getOpenConnection(req);
 		if (cached == null) {
-			try {
-				DataSource datasource = ((DataSource) req.getServletContext().getAttribute(DATA_SOURCE_KEY));
-
-				if (datasource == null)
-					throw new DBConnectionException(
-							"No DataSource exists. You must call DBConnection.setDataSource() before calling getConnection()");
-
-				cached = datasource.getConnection();
-			} catch (SQLException e) {
-				throw new DBConnectionException("Unable to connect to Database", e);
-			}
+			cached = getConnection(req.getServletContext());
 			req.setAttribute(KEY, cached);
 		}
 		return cached;
+	}
+
+	public static Connection getConnection(ServletContext ctx) throws DBConnectionException {
+		Connection connection = null;
+		try {
+			DataSource datasource = ((DataSource) ctx.getAttribute(DATA_SOURCE_KEY));
+
+			if (datasource == null)
+				throw new DBConnectionException(
+						"No DataSource exists. You must call DBConnection.setDataSource() before calling getConnection()");
+
+			connection = datasource.getConnection();
+		} catch (SQLException e) {
+			throw new DBConnectionException("Unable to connect to Database", e);
+		}
+
+		return connection;
 	}
 
 	public static void closeOpenConnection(ServletRequest request) {

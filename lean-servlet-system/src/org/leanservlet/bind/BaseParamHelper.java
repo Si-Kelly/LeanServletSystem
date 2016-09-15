@@ -83,8 +83,12 @@ public abstract class BaseParamHelper<T> implements ParamHelper<T> {
 	 */
 	public ParamHelper<T> require(String message) throws ValidationException {
 		if (value() == null)
-			throw new ValidationException(new String[] { getParameterName(), message });
+			invalid(message);
 		return this;
+	}
+
+	public void invalid(String message) throws ValidationException {
+		throw new ValidationException(new String[] { getParameterName(), message });
 	}
 
 	/**
@@ -93,6 +97,11 @@ public abstract class BaseParamHelper<T> implements ParamHelper<T> {
 	public T value() throws ValidationException {
 		if (value == null) {
 			String s = getParameter();
+			if (s != null) {
+				s = s.trim();
+				if (s.length() == 0)
+					s = null;
+			}
 			if (s != null) {
 				if (fromURL) {
 					try {

@@ -18,12 +18,12 @@ public class BooleanParam extends BaseParamHelper<Boolean> {
 	@Override
 	public Boolean parse(String val) throws ValidationException {
 		if (val == null || val.isEmpty())
-			return null;
+			return Boolean.FALSE;
 		Integer i = null;
 		try {
 			i = Integer.parseInt(val);
 		} catch (NumberFormatException e) {
-			throw new ValidationException(new String[] { getParameterName(), "The field doesn't seem to be a valid value." });
+			invalid("The field doesn't seem to be a valid value.");
 		}
 		if (i == 1)
 			return Boolean.TRUE;

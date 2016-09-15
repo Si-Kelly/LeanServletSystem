@@ -18,6 +18,14 @@ public class ServletUtils {
 		JSP_ROOT = root;
 	}
 
+	public static boolean isAjaxRequest(HttpServletRequest request) {
+		return request.getRequestURI().contains("/ajax");
+	}
+
+	public static boolean isJSONRequest(HttpServletRequest request) {
+		return request.getRequestURI().contains("/json");
+	}
+
 	public static void forwardTo(HttpServletRequest request, HttpServletResponse response, String nextJSP) throws ServletException {
 		try {
 			request.getServletContext().getRequestDispatcher(JSP_ROOT + nextJSP).forward(request, response);
@@ -29,7 +37,7 @@ public class ServletUtils {
 	public static void writeObject(HttpServletResponse response, Object obj) {
 		PrintWriter pw;
 		try {
-			response.setContentType("text/json");
+			response.setContentType("application/json");
 			pw = response.getWriter();
 			pw.write(new Gson().toJson(obj));
 			pw.flush();
@@ -44,6 +52,15 @@ public class ServletUtils {
 			response.sendRedirect(request.getContextPath() + "/" + redirectURL);
 		} catch (IOException e) {
 			LogFactory.getLog(ServletUtils.class).error("IOException thrown while redirecting", e);
+		}
+	}
+
+	public static void writeString(HttpServletResponse response, String string) {
+		try {
+			response.getWriter().write(string);
+			response.getWriter().flush();
+		} catch (IOException e) {
+			LogFactory.getLog(ServletUtils.class).error("IOException thrown while writing a String to response", e);
 		}
 	}
 
