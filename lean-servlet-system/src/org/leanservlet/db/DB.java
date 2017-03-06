@@ -27,13 +27,13 @@ public class DB {
 	 * Returns an instance of DBConnection
 	 * 
 	 * @param req
-	 * @throws DBConnectionException
+	 * @
 	 */
 	private DB() {
 		// prevent accidental instantiation
 	}
 
-	public static void setDataSource(ServletContext servletContext, DataSource ds) throws DBConnectionException {
+	public static void setDataSource(ServletContext servletContext, DataSource ds) {
 		servletContext.setAttribute(DATA_SOURCE_KEY, ds);
 	}
 
@@ -41,7 +41,7 @@ public class DB {
 		return (Connection) req.getAttribute(KEY);
 	}
 
-	public static Connection getConnection(ServletRequest req) throws DBConnectionException {
+	public static Connection getConnection(ServletRequest req) {
 		Connection cached = getOpenConnection(req);
 		if (cached == null) {
 			cached = getConnection(req.getServletContext());
@@ -50,7 +50,7 @@ public class DB {
 		return cached;
 	}
 
-	public static Connection getConnection(ServletContext ctx) throws DBConnectionException {
+	public static Connection getConnection(ServletContext ctx) {
 		Connection connection = null;
 		try {
 			DataSource datasource = ((DataSource) ctx.getAttribute(DATA_SOURCE_KEY));

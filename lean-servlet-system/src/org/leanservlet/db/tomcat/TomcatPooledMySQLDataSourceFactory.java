@@ -11,7 +11,7 @@ import org.leanservlet.db.DataSourceFactory;
 public class TomcatPooledMySQLDataSourceFactory implements DataSourceFactory {
 
 	@Override
-	public DataSource create(DBAccount account) throws DBConnectionException {
+	public DataSource create(DBAccount account) {
 		Object driver = null;
 		try {
 			driver = Class.forName("com.mysql.jdbc.Driver").newInstance();

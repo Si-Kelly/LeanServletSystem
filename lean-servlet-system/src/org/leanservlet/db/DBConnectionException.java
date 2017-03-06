@@ -1,8 +1,7 @@
 package org.leanservlet.db;
 
-import org.leanservlet.BaseCheckedException;
 
-public class DBConnectionException extends BaseCheckedException {
+public class DBConnectionException extends RuntimeException {
 	/**
      * 
      */
